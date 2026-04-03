@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bug Hunter Game</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial;
+      background: #0d1117;
+      color: white;
+    }
+
+    h1 {
+      color: #ff69b4;
+    }
+
+    .game-area {
+      width: 300px;
+      height: 300px;
+      margin: auto;
+      position: relative;
+      background: #161b22;
+      border-radius: 10px;
+    }
+
+    .bug {
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      cursor: pointer;
+      font-size: 30px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px;
+      background: #ff69b4;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>🐛 Bug Hunter</h1>
+<p>Click bugs to fix them before time runs out!</p>
+
+<h2>Score: <span id="score">0</span></h2>
+<h3>Time: <span id="time">15</span>s</h3>
+
+<div class="game-area" id="gameArea"></div>
+
+<button onclick="startGame()">Start Game</button>
+
+<script>
+let score = 0;
+let time = 15;
+let gameInterval;
+let bugInterval;
+
+function startGame() {
+  score = 0;
+  time = 15;
+  document.getElementById("score").innerText = score;
+  document.getElementById("time").innerText = time;
+
+  gameInterval = setInterval(() => {
+    time--;
+    document.getElementById("time").innerText = time;
+
+    if (time <= 0) {
+      clearInterval(gameInterval);
+      clearInterval(bugInterval);
+      alert("Game Over! Your Score: " + score);
+
+      // 🔥 FOLLOW CTA
+      window.location.href = "https://www.linkedin.com/in/astha-sah-88494a321/";
+    }
+  }, 1000);
+
+  bugInterval = setInterval(createBug, 800);
+}
+
+function createBug() {
+  const bug = document.createElement("div");
+  bug.classList.add("bug");
+  bug.innerHTML = "🐛";
+
+  bug.style.top = Math.random() * 260 + "px";
+  bug.style.left = Math.random() * 260 + "px";
+
+  bug.onclick = () => {
+    score++;
+    document.getElementById("score").innerText = score;
+    bug.remove();
+  };
+
+  document.getElementById("gameArea").appendChild(bug);
+
+  setTimeout(() => bug.remove(), 1500);
+}
+</script>
+
+</body>
+</html>
