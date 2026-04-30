@@ -79,13 +79,11 @@ function startGame() {
 
 alert("Game Over! Your Score: " + score);
 
-setTimeout(() => {
-  showLeaderboard();
-}, 500);
+setTimeout(showLeaderboard, 500);
 
 setTimeout(() => {
   window.location.href = "https://www.linkedin.com/in/astha-sah-88494a321/";
-}, 3000);
+}, 4000);
 
   bugInterval = setInterval(createBug, 800);
 }
@@ -146,6 +144,8 @@ async function showLeaderboard() {
 
   document.getElementById("leaderboard").innerHTML = text;
 }
+  window.saveScore = saveScore;
+window.showLeaderboard = showLeaderboard;
 </script>
 
 </body>
