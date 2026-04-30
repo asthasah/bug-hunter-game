@@ -72,7 +72,8 @@ function startGame() {
 
     if (time <= 0) {
       clearInterval(gameInterval);
-      clearInterval(bugInterval);
+      clearInterval(bugInterval); 
+      saveScore(score); 
       alert("Game Over! Your Score: " + score);
 
       // 🔥 FOLLOW CTA
