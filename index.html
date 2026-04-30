@@ -102,6 +102,30 @@ function createBug() {
   setTimeout(() => bug.remove(), 1500);
 }
 </script>
+  <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCmITmRntAIQddhrOasnxwljZ1ECSaLclg",
+  authDomain: "bug-hunter-game.firebaseapp.com",
+  projectId: "bug-hunter-game"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+let playerName = prompt("Enter your name");
+
+async function saveScore(score) {
+  await addDoc(collection(db, "scores"), {
+    name: playerName,
+    score: score
+  });
+}
+
+saveScore(50);
+</script>
 
 </body>
 </html>
