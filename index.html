@@ -51,6 +51,8 @@
 <h3>Time: <span id="time">15</span>s</h3>
 
 <div class="game-area" id="gameArea"></div>
+<h2>🏆 Leaderboard</h2>
+<div id="leaderboard"></div>
 
 <button onclick="startGame()">Start Game</button>
 
@@ -73,13 +75,17 @@ function startGame() {
     if (time <= 0) {
       clearInterval(gameInterval);
       clearInterval(bugInterval); 
-      saveScore(score); 
-      alert("Game Over! Your Score: " + score);
+      saveScore(score);
 
-      // 🔥 FOLLOW CTA
-      window.location.href = "https://www.linkedin.com/in/astha-sah-88494a321/";
-    }
-  }, 1000);
+alert("Game Over! Your Score: " + score);
+
+setTimeout(() => {
+  showLeaderboard();
+}, 500);
+
+setTimeout(() => {
+  window.location.href = "https://www.linkedin.com/in/astha-sah-88494a321/";
+}, 3000);
 
   bugInterval = setInterval(createBug, 800);
 }
@@ -105,7 +111,7 @@ function createBug() {
 </script>
   <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCmITmRntAIQddhrOasnxwljZ1ECSaLclg",
@@ -125,7 +131,21 @@ async function saveScore(score) {
   });
 }
 
-saveScore(50);
+async function showLeaderboard() {
+  const snapshot = await getDocs(collection(db, "scores"));
+
+  let data = [];
+  snapshot.forEach(doc => data.push(doc.data()));
+
+  data.sort((a, b) => b.score - a.score);
+
+  let text = "";
+  data.slice(0, 5).forEach((p, i) => {
+    text += (i+1) + ". " + p.name + " - " + p.score + "<br>";
+  });
+
+  document.getElementById("leaderboard").innerHTML = text;
+}
 </script>
 
 </body>
