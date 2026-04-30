@@ -75,11 +75,11 @@ function startGame() {
     if (time <= 0) {
       clearInterval(gameInterval);
       clearInterval(bugInterval); 
-      saveScore(score);
+     
 
 alert("Game Over! Your Score: " + score);
 
-setTimeout(showLeaderboard, 500);
+
 
 setTimeout(() => {
   window.location.href = "https://www.linkedin.com/in/astha-sah-88494a321/";
@@ -144,8 +144,7 @@ async function showLeaderboard() {
 
   document.getElementById("leaderboard").innerHTML = text;
 }
-  window.saveScore = saveScore;
-window.showLeaderboard = showLeaderboard;
+  
 </script>
 
 </body>
